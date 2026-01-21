@@ -1,16 +1,37 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:8080", // Spring Boot backend
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:8080",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Add token from localStorage if available
-const token = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user")).token
-  : null;
+// 🔐 Attach JWT token to every request (if present)
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token"); // ✅ simple & safe
 
-if (token) {
-  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-}
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-export default instance;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// 🚨 Handle expired / invalid token globally
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login"; // 🔁 force re-login
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default axiosInstance;

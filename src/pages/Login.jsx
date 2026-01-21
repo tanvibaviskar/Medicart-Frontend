@@ -1,67 +1,93 @@
-import { useState, useContext } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../auth/AuthContext";
 import axios from "../api/axios";
-import { jwtDecode } from "jwt-decode"; // ✅ CORRECT IMPORT
+import { AuthContext } from "../auth/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const { loginUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
-      const res = await axios.post("/users/signin", { email, password });
-      console.log("Login response:", res.data);
-
-      // ✅ Decode JWT correctly
-      const decoded = jwtDecode(res.data.jwt);
-      console.log("Decoded JWT:", decoded);
-
-      const role = decoded.role.replace("ROLE_", "");
-
-      // ✅ Save user
-      loginUser({
-        email: decoded.sub,
-        role: role,
-        token: res.data.jwt,
+      const res = await axios.post("/users/signin", {
+        email,
+        password,
       });
 
-      // ✅ Navigate based on role
+      const token = res.data.jwt;
+      const decoded = jwtDecode(token);
+      const role = decoded.role.replace("ROLE_", "");
+
+      loginUser({
+        email: decoded.sub,
+        role,
+        token,
+      });
+
+      // 🔐 Role based redirect
       if (role === "ADMIN") navigate("/admin");
       else if (role === "MEDICAL") navigate("/medical");
       else navigate("/customer");
+
     } catch (err) {
-      console.error("Login error:", err);
+      console.error(err);
       setError("Invalid email or password");
     }
   };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div style={{ padding: "40px", maxWidth: "400px" }}>
       <h2>Medicart Login</h2>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
+
       <form onSubmit={handleLogin}>
         <input
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        <br />
-        <br />
+        <br /><br />
+
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <br />
-        <br />
+        <br /><br />
+
         <button type="submit">Login</button>
       </form>
+
+      <hr style={{ margin: "20px 0" }} />
+
+      {/* 🔥 REGISTER OPTIONS */}
+      <p><b>New User?</b></p>
+
+      <button
+        style={{ marginBottom: "10px", width: "100%" }}
+        onClick={() => navigate("/register")}
+      >
+        Register as Customer
+      </button>
+
+      <button
+        style={{ width: "100%" }}
+        onClick={() => navigate("/medical/register")}
+      >
+        Register as Medical
+      </button>
     </div>
   );
 }
