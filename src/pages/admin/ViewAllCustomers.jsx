@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
+import "./ViewAllMedicals.css"; // reuse the same CSS
 
 const ViewAllCustomers = () => {
   const [customers, setCustomers] = useState([]);
@@ -28,62 +29,48 @@ const ViewAllCustomers = () => {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial, sans-serif" }}>
-      <h2 style={{ color: "#2c3e50", marginBottom: "20px" }}>All Customers</h2>
-
-      {customers.length === 0 ? (
-        <p>No customers found.</p>
-      ) : (
-        <div style={{ overflowX: "auto" }}>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-              minWidth: "900px",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <thead style={{ backgroundColor: "#2980b9", color: "white" }}>
-              <tr>
-                <th style={{ padding: "10px" }}>ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Pincode</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map((c, index) => (
-                <tr
-                  key={c.id}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "#ecf0f1" : "#ffffff",
-                    transition: "background-color 0.2s",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#d1e7ff")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      index % 2 === 0 ? "#ecf0f1" : "#ffffff")
-                  }
-                >
-                  <td style={{ padding: "8px", textAlign: "center" }}>{c.id}</td>
-                  <td>{c.userDetails?.fullname}</td>
-                  <td>{c.userDetails?.email}</td>
-                  <td>{c.userDetails?.contact}</td>
-                  <td>{c.latitude}</td>
-                  <td>{c.longitude}</td>
-                  <td>{c.pincode}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="medical-table-wrapper">
+      <div className="medical-table-header">
+        <div>
+          <h2>Customers</h2>
+          <p>View all registered customers</p>
         </div>
-      )}
+      </div>
+
+      <div style={{ overflowX: "auto" }}>
+        <table className="medical-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>Pincode</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {customers.map((c, index) => (
+              <tr key={c.id}>
+                <td>{index + 1}</td>
+                <td>
+                  <div className="store-cell">
+                    <div className="store-icon">👤</div>
+                    <strong>{c.userDetails?.fullname}</strong>
+                  </div>
+                </td>
+                <td>{c.userDetails?.email}</td>
+                <td>{c.userDetails?.contact}</td>
+                <td>{c.latitude}</td>
+                <td>{c.longitude}</td>
+                <td>{c.pincode}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,45 @@
+.update-container {
+  max-width: 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.location-btn {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.error-text {
+  color: red;
+  font-size: 14px;
+}

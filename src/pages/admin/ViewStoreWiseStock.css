@@ -1,0 +1,139 @@
+/* ===== WRAPPER ===== */
+.storewise-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
+}
+
+/* ===== STORE CARD ===== */
+.store-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== STORE HEADER ===== */
+.store-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.store-icon {
+  width: 50px;
+  height: 50px;
+  background: #e0f2fe;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.store-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.store-info p {
+  margin: 2px 0 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ===== TABLE ===== */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.medicine-table thead th {
+  padding: 12px 16px;
+  background: #0284c7;
+  color: white;
+  font-size: 14px;
+  text-align: left;
+}
+
+.medicine-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.medicine-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.medicine-table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+/* ===== ROW STYLING ===== */
+.even-row {
+  background: #f9fafb;
+}
+
+.odd-row {
+  background: #ffffff;
+}
+
+/* ===== WRAP LONG TEXT ===== */
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+/* ===== STATUS LABEL ===== */
+.status-label {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-align: center;
+  min-width: 80px;
+  color: white;
+}
+
+/* ACTIVE = Green */
+.status-label.active {
+  background-color: #16a34a;
+}
+
+/* INACTIVE = Gray */
+.status-label.inactive {
+  background-color: #6b7280;
+}
+
+/* OUT_OF_STOCK = Red */
+.status-label.out-of-stock {
+  background-color: #b91c1c;
+}
+
+/* EXPIRED = Orange */
+.status-label.expired {
+  background-color: #f97316;
+}
+
+/* DELETED = Dark Gray */
+.status-label.deleted {
+  background-color: #374151;
+}
+
+/* ===== NO MEDICINES ===== */
+.no-medicines {
+  color: #6b7280;
+  font-style: italic;
+  margin: 10px 0 0 0;
+}

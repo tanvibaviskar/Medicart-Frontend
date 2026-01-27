@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
+import "./ViewStoreWiseStock.css";
 
 const ViewStoreWiseStock = () => {
   const [stores, setStores] = useState([]);
@@ -23,35 +24,57 @@ const ViewStoreWiseStock = () => {
     fetchStoreWiseStock();
   }, []);
 
+  // Map enum status to CSS classes
+  const getStatusClass = (status) => {
+    switch (status?.trim().toUpperCase()) {
+      case "ACTIVE":
+        return "active";
+      case "INACTIVE":
+        return "inactive";
+      case "OUT_OF_STOCK":
+        return "out-of-stock";
+      case "EXPIRED":
+        return "expired";
+      case "DELETED":
+        return "deleted";
+      default:
+        return "";
+    }
+  };
+
   if (loading) return <p>Loading store-wise stock...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p className="error">{error}</p>;
   if (stores.length === 0) return <p>No stores found.</p>;
 
   return (
-    <div className="storewise-container">
-      <h2>Store Wise Medicine Stock</h2>
-
+    <div className="storewise-wrapper">
       {stores.map((store) => (
-        <div key={store.medicalId} className="store-section">
-          {/* 👈 Show store/medical name above the table */}
-          <h3 className="store-name">{store.medicalStoreName}</h3>
+        <div key={store.medicalId} className="store-card">
+          {/* Store Header */}
+          <div className="store-header">
+            <div className="store-icon">🏥</div>
+            <div className="store-info">
+              <h3>{store.medicalStoreName}</h3>
+              <p>{store.contact || store.email}</p>
+            </div>
+          </div>
 
-
+          {/* Medicines Table */}
           {store.medicines.length === 0 ? (
             <p className="no-medicines">No medicines in this store.</p>
           ) : (
-            <div className="table-container">
-              <table className="store-table">
+            <div className="table-responsive">
+              <table className="medicine-table">
                 <thead>
                   <tr>
-                    <th>Medicine ID</th>
+                    <th>ID</th>
                     <th>Brand</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
+                    <th className="wrap-text">Description</th>
+                    <th>Qty</th>
                     <th>Price</th>
                     <th>Discount</th>
-                    <th>MFG Date</th>
-                    <th>EXP Date</th>
+                    <th>MFG</th>
+                    <th>EXP</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -63,15 +86,17 @@ const ViewStoreWiseStock = () => {
                     >
                       <td>{m.medicineId}</td>
                       <td>{m.brand}</td>
-                      <td>{m.description}</td>
+                      <td className="wrap-text">{m.description}</td>
                       <td>{m.quantity}</td>
                       <td>{m.price}</td>
                       <td>{m.discount}</td>
                       <td>{m.mfgDate}</td>
                       <td>{m.expDate}</td>
                       <td>
-                        <span className={`status-badge ${m.status.toLowerCase()}`}>
-                          {m.status}
+                        <span
+                          className={`status-label ${getStatusClass(m.status)}`}
+                        >
+                          {m.status?.trim().replaceAll("_", " ")}
                         </span>
                       </td>
                     </tr>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import "./AdminDashboard.css";
+import "./ViewAllMedicals.css";
 
 const ViewAllMedicines = () => {
   const [medicines, setMedicines] = useState([]);
@@ -14,7 +14,7 @@ const ViewAllMedicines = () => {
         },
       })
       .then((res) => {
-        setMedicines(res.data);
+        setMedicines(res.data); // include all medicines (ACTIVE/INACTIVE/DELETED)
         setLoading(false);
       })
       .catch((err) => {
@@ -26,42 +26,67 @@ const ViewAllMedicines = () => {
   if (loading) return <p>Loading medicines...</p>;
 
   return (
-    <div className="table-container">
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Brand</th>
-            <th>Description</th>
-            <th>Store</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Discount</th>
-            <th>MFG</th>
-            <th>EXP</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+    <div className="medical-table-wrapper">
+      <div className="medical-table-header">
+        <div>
+          <h2>Medicines</h2>
+          <p>View all registered medicines</p>
+        </div>
+      </div>
 
-        <tbody>
-          {medicines.map((m) => (
-            <tr key={m.medicineId}>
-              <td>{m.medicineId}</td>
-              <td>{m.brand}</td>
-              <td>{m.description}</td>
-              <td>{m.medicalStoreName}</td>
-              <td>{m.quantity}</td>
-              <td>₹{m.price}</td>
-              <td>₹{m.discount}</td>
-              <td>{m.mfgDate}</td>
-              <td>{m.expDate}</td>
-              <td className={m.status === "ACTIVE" ? "active" : "inactive"}>
-                {m.status}
-              </td>
+      <div className="table-responsive">
+        <table className="medical-table">
+          <thead>
+            <tr>
+              <th style={{ width: "40px" }}>ID</th>
+              <th style={{ width: "120px" }}>Brand</th>
+              <th style={{ width: "200px" }}>Description</th>
+              <th style={{ width: "180px" }}>Store</th>
+              <th style={{ width: "60px" }}>Qty</th>
+              <th style={{ width: "80px" }}>Price</th>
+              <th style={{ width: "80px" }}>Discount</th>
+              <th style={{ width: "100px" }}>MFG</th>
+              <th style={{ width: "100px" }}>EXP</th>
+              <th style={{ width: "100px" }}>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {medicines.map((m, index) => (
+              <tr key={m.medicineId}>
+                <td>{index + 1}</td>
+                <td>
+                  <div className="store-cell">
+                    <div className="store-icon">💊</div>
+                    <strong>{m.brand}</strong>
+                  </div>
+                </td>
+                <td className="wrap-text">{m.description}</td>
+                <td className="wrap-text">{m.medicalStoreName}</td>
+                <td>{m.quantity}</td>
+                <td>₹{m.price}</td>
+                <td>₹{m.discount}</td>
+                <td>{m.mfgDate}</td>
+                <td>{m.expDate}</td>
+                <td>
+                  <span
+                    className={`status-dropdown ${
+                      m.status.toLowerCase() === "active"
+                        ? "approved"
+                        : m.status.toLowerCase() === "inactive"
+                          ? "rejected"
+                          : "deleted"
+                    }`}
+                    style={{ cursor: "default" }}
+                  >
+                    {m.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

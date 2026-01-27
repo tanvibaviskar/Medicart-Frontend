@@ -1,338 +1,184 @@
-/* General Dashboard Layout */
-.dashboard-container {
-  display: flex;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-  min-height: 100vh;
+/* ===== GLOBAL (PREVENT FULL PAGE SCROLL) ===== */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* ❌ disables whole page scroll */
 }
 
-/* Sidebar */
+/* ===== LAYOUT ===== */
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* ❌ no page scroll */
+}
+
+/* ===== SIDEBAR ===== */
 .sidebar {
-  width: 220px;
-  background-color: #001529;
-  color: #fff;
+  width: 260px;
+  background: linear-gradient(180deg, #0ea5e9, #0284c7);
+  color: white;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 20px;
-  font-weight: bold;
-  font-size: 18px;
+  gap: 2px;
+  margin-bottom: 30px;
 }
 
 .sidebar-logo img {
-  width: 40px;
+  width: 170px;
+  margin-left: -40px;
 }
 
-.menu {
+.sidebar-logo h2 {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* ===== SIDEBAR MENU ===== */
+.sidebar-menu {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1;
+  flex: 1;
 }
 
-.menu li {
-  padding: 12px 20px;
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.2s;
+  font-weight: 600;
+  color: #e0f2fe;
+  transition: background 0.2s;
 }
 
-.menu li:hover,
-.active-tab {
-  background-color: #1890ff;
-  color: #fff;
+.sidebar-menu li:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 20px;
+.sidebar-menu li.active {
+  background: white;
+  color: #0284c7;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+.menu-icon {
+  font-size: 18px;
 }
 
-.header h1 {
-  margin: 0;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.user img {
-  width: 40px;
-  border-radius: 50%;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.card {
-  background: #fff;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  margin: 0 0 10px;
-}
-
-.growth {
-  color: green;
-  font-size: 12px;
-}
-
-.pending {
-  color: #faad14;
-  font-size: 12px;
-}
-
-.recent-registrations {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.section-header h2 {
-  margin: 0;
-}
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.filters input {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-.filters select {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-}
-
-table {
+/* ===== LOGOUT ===== */
+.logout button {
   width: 100%;
-  border-collapse: collapse;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-table th,
-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
+/* ===== MAIN ===== */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* ❌ prevents main scroll */
 }
 
-.customer-name {
+/* ===== TOPBAR ===== */
+.topbar {
+  background: white;
+  padding: 22px 22px; /* reduced from 20px 24px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  height: 56px; /* optional but recommended for consistent height */
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* slightly reduced */
+}
+
+.bell {
+  font-size: 18px; /* slightly smaller */
+  cursor: pointer;
+}
+
+.admin-info {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.customer-name img {
-  width: 30px;
-  height: 30px;
+.admin-info img {
+  width: 32px; /* reduced from 40px */
+  height: 32px;
   border-radius: 50%;
 }
 
-.active {
-  background: #e6f7ff;
-  color: #1890ff;
-  padding: 3px 8px;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: bold;
+/* ===== CONTENT (ONLY SCROLL HERE) ===== */
+.content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto; /* ✅ ONLY SCROLLBAR */
+  background: #f8fafc;
 }
 
-.inactive {
-  background: #fff0f0;
-  color: #ff4d4f;
-  padding: 3px 8px;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: bold;
+/* ===== CARDS ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
-.more-actions {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* ================= MEDICINES TABLE ================= */
-
-.table-container {
-  background: #fff;
+.card {
+  background: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  overflow-x: auto;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.data-table th {
-  background-color: #f0f2f5;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 12px;
-}
-
-.data-table td {
-  padding: 10px 12px;
-  font-size: 13px;
-  border-bottom: 1px solid #eee;
-}
-
-.data-table tr:hover {
-  background-color: #fafafa;
-}
-
-/* Medicine Status */
-.data-table .active {
-  background: #e6f7ff;
-  color: #1890ff;
-  padding: 4px 10px;
+.icon {
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 12px;
 }
 
-.data-table .inactive {
-  background: #fff1f0;
-  color: #ff4d4f;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
+.icon.blue {
+  background: #e0f2fe;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .data-table th,
-  .data-table td {
-    font-size: 12px;
-    padding: 8px;
-  }
-}
-.storewise-container {
-  padding: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+.icon.green {
+  background: #dcfce7;
 }
 
-.store-section {
-  margin-bottom: 40px;
+.icon.yellow {
+  background: #fef3c7;
 }
 
-.store-name {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #2c3e50;
-}
-
-.table-container {
-  overflow-x: auto;
-}
-
-.store-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 900px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  background-color: #f9f9f9;
-}
-
-.store-table th,
-.store-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.store-table th {
-  background-color: #2980b9;
-  color: white;
-  position: sticky;
-  top: 0;
-}
-
-.even-row {
-  background-color: #ecf0f1;
-}
-
-.odd-row {
-  background-color: #ffffff;
-}
-
-.status-badge {
-  padding: 3px 8px;
-  border-radius: 6px;
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.status-badge.active {
-  background-color: #2ecc71;
-}
-
-.status-badge.inactive {
-  background-color: #95a5a6;
-}
-
-.status-badge.deleted {
-  background-color: #e74c3c;
-}
-.store-section {
-  margin-bottom: 40px;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.store-name {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #2c3e50;
+.positive {
+  color: #16a34a;
   font-weight: 600;
 }
 
-.no-medicines {
-  font-style: italic;
-  color: #7f8c8d;
-  padding-left: 5px;
+.warning {
+  color: #d97706;
+  font-weight: 600;
 }

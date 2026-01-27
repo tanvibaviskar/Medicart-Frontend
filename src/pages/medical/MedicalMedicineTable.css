@@ -1,0 +1,59 @@
+.medicine-table-container {
+  padding: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.medicine-table th,
+.medicine-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.medicine-table th {
+  background: #0a6ebd;
+  color: white;
+}
+
+.status-badge.active {
+  color: green;
+  font-weight: bold;
+}
+
+.status-badge.inactive {
+  color: orange;
+  font-weight: bold;
+}
+
+.status-badge.expired {
+  color: red;
+  font-weight: bold;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+.msg-text {
+  margin-bottom: 10px;
+  font-weight: bold;
+}

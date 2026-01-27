@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerCustomer } from "../api/customerService";
-import logo from "../assets/logo.png"; // your logo
+import logo from "../assets/medicart-logo.png";
 
 function Register() {
   const [form, setForm] = useState({
@@ -11,16 +11,14 @@ function Register() {
     password: "",
     pincode: "",
     latitude: "",
-    longitude: ""
+    longitude: "",
   });
-  const navigate = useNavigate();
+
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -32,11 +30,11 @@ function Register() {
         fullname: form.full_name,
         contact: form.contact,
         email: form.email,
-        password: form.password
+        password: form.password,
       },
       pincode: form.pincode,
       latitude: Number(form.latitude),
-      longitude: Number(form.longitude)
+      longitude: Number(form.longitude),
     };
 
     try {
@@ -44,117 +42,220 @@ function Register() {
       alert(res?.data?.message || "Registration successful");
       navigate("/login");
     } catch (err) {
-      console.error(err);
       setError(err?.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        padding: "20px",
-        boxSizing: "border-box",
-        background: "url('https://plus.unsplash.com/premium_photo-1672759455907-bdaef741cd88?q=80&w=1416&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          background: "rgba(255,255,255,0.95)",
-          padding: "30px",
-          borderRadius: "16px",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
-          width: "100%",
-          maxWidth: "500px",
-          height: "100%",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          textAlign: "center",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* Logo */}
-        <img src={logo} alt="Medicart Logo" style={{ width: "80px", marginBottom: "15px" }} />
-        <h2 style={{ marginBottom: "20px", color: "#2c3e50" }}>Customer Registration</h2>
+    <div style={styles.page}>
+      <div style={styles.overlay}></div>
 
-        {error && (
-          <p style={{ color: "#ff4d4f", background: "#ffe6e6", padding: "10px", borderRadius: "8px" }}>
-            {error}
-          </p>
-        )}
+      <div style={styles.card}>
+        <p style={styles.back} onClick={() => navigate("/login")}>
+          ← Back to Login
+        </p>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: "15px", textAlign: "left" }}>
-          {[
-            { name: "full_name", placeholder: "Full Name", type: "text" },
-            { name: "contact", placeholder: "Contact Number", type: "tel" },
-            { name: "email", placeholder: "Email", type: "email" },
-            { name: "password", placeholder: "Password", type: "password" },
-            { name: "pincode", placeholder: "Pincode", type: "text" },
-            { name: "latitude", placeholder: "Latitude", type: "text" },
-            { name: "longitude", placeholder: "Longitude", type: "text" },
-          ].map((field) => (
-            <div key={field.name} style={{ marginBottom: "12px" }}>
-              <input
-                type={field.type}
-                name={field.name}
-                placeholder={field.placeholder}
-                value={form[field.name]}
-                onChange={handleChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "12px 15px",
-                  borderRadius: "10px",
-                  border: "1px solid #ccc",
-                  fontSize: "16px",
-                  outline: "none",
-                  transition: "0.3s",
-                  boxSizing: "border-box",
-                }}
-                onFocus={(e) => (e.target.style.borderColor = "#3498db")}
-                onBlur={(e) => (e.target.style.borderColor = "#ccc")}
-              />
-            </div>
-          ))}
+        <div style={styles.logoBox}>
+          <img src={logo} alt="MediCart" style={{ width: 36 }} />
+        </div>
 
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "14px",
-              background: "#3498db",
-              color: "#fff",
-              fontSize: "18px",
-              border: "none",
-              borderRadius: "12px",
-              cursor: "pointer",
-              transition: "0.3s",
-            }}
-            onMouseOver={(e) => (e.target.style.background = "#2980b9")}
-            onMouseOut={(e) => (e.target.style.background = "#3498db")}
-          >
-            Register
+        <h2 style={styles.title}>Create Customer Account</h2>
+        <p style={styles.subtitle}>
+          Join thousands of customers using MediCart
+        </p>
+
+        {error && <p style={styles.error}>{error}</p>}
+
+        <form onSubmit={handleSubmit}>
+          <div style={styles.grid}>
+            <input
+              name="full_name"
+              placeholder="Full Name"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+
+            <input
+              name="contact"
+              placeholder="Contact Number"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+
+            <input
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+
+            <input
+              name="pincode"
+              placeholder="Pincode"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+
+            <input
+              name="latitude"
+              placeholder="Latitude"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+
+            <input
+              name="longitude"
+              placeholder="Longitude"
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </div>
+
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+            style={{ ...styles.input, marginTop: 16 }}
+          />
+
+          <button type="submit" style={styles.primaryBtn}>
+            Create Account
           </button>
         </form>
 
-        <p style={{ marginTop: "15px", textAlign: "center", color: "#555" }}>
+        <p style={styles.footer}>
           Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            style={{ color: "#3498db", cursor: "pointer", fontWeight: "bold" }}
-          >
-            Login
+          <span style={styles.link} onClick={() => navigate("/login")}>
+            Sign in here
           </span>
         </p>
       </div>
     </div>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    backgroundImage:
+      "url('https://plus.unsplash.com/premium_photo-1672759455907-bdaef741cd88?q=80&w=1416&auto=format&fit=crop')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Segoe UI, sans-serif",
+    position: "relative",
+  },
+
+  overlay: {
+    position: "absolute",
+    inset: 0,
+    background: "rgba(15, 23, 42, 0.6)",
+    backdropFilter: "blur(2px)",
+  },
+
+  card: {
+    position: "relative",
+    width: 420,
+    padding: 28,
+    background: "rgba(255,255,255,0.95)",
+    borderRadius: 16,
+    boxShadow:
+      "0 30px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6)",
+  },
+
+  logoBox: {
+    width: 46,
+    height: 46,
+    background: "#e0f2fe",
+    borderRadius: 10,
+    margin: "0 auto 12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  title: {
+    textAlign: "center",
+    marginBottom: 4,
+    fontWeight: 700,
+  },
+
+  subtitle: {
+    textAlign: "center",
+    color: "#64748b",
+    fontSize: 14,
+    marginBottom: 18,
+  },
+
+  back: {
+    cursor: "pointer",
+    color: "#38bdf8",
+    fontSize: 13,
+    marginBottom: 10,
+  },
+
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    columnGap: "16px",
+    rowGap: "14px",
+  },
+
+  input: {
+    width: "100%",
+    boxSizing: "border-box", // 🔥 THIS FIXES THE MERGING
+    padding: "11px 12px",
+    borderRadius: 8,
+    border: "1px solid #cbd5e1",
+    fontSize: 14,
+  },
+
+  primaryBtn: {
+    width: "100%",
+    padding: "12px",
+    marginTop: 20,
+    background: "linear-gradient(180deg, #0ea5e9, #0284c7)",
+    color: "#fff",
+    border: "none",
+    borderRadius: 10,
+    fontSize: 15,
+    cursor: "pointer",
+    boxShadow: "0 10px 22px rgba(14,165,233,0.35)",
+  },
+
+  footer: {
+    marginTop: 16,
+    fontSize: 13,
+    textAlign: "center",
+    color: "#475569",
+  },
+
+  link: {
+    color: "#38bdf8",
+    cursor: "pointer",
+    fontWeight: 600,
+  },
+
+  error: {
+    background: "#fee2e2",
+    color: "#b91c1c",
+    padding: 8,
+    borderRadius: 8,
+    marginBottom: 12,
+    textAlign: "center",
+    fontSize: 13,
+  },
+};
 
 export default Register;
