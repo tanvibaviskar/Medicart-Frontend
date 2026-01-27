@@ -68,7 +68,7 @@ function MedicalRegister() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.overlay}></div>
+      <div style={styles.cardoverlay}></div>
 
       <div style={styles.card}>
         <p style={styles.back} onClick={() => navigate("/login")}>
@@ -218,7 +218,7 @@ const styles = {
       "0 20px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6)",
   },
 
-  overlay: {
+  cardoverlay: {
     position: "absolute",
     inset: 0,
     background: "rgba(15, 23, 42, 0.6)",
