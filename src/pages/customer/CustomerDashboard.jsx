@@ -9,6 +9,8 @@ import "./CustomerDashboard.css";
 import CustomerDashboardHome from "./CustomerDashboardHome";
 
 import NearbyMedicals from "./NearbyMedicals";
+import SearchMedicine from "./SearchMedicine";
+
 
 
 
@@ -49,6 +51,12 @@ const CustomerDashboard = () => {
 >
   Nearby Medicals
 </li>
+  <li
+  className={activeTab === "Search" ? "active-tab" : ""}
+  onClick={() => setActiveTab("Search")}
+>
+  Search Medicines
+</li>
 
 
           <li onClick={handleLogout} style={{ color: "red", cursor: "pointer" }}>
@@ -65,6 +73,9 @@ const CustomerDashboard = () => {
 
         {activeTab === "Dashboard" && <CustomerDashboardHome />}
        {activeTab === "Nearby" && <NearbyMedicals />}
+      {activeTab === "Search" && <SearchMedicine />}
+
+
 
 
       </main>

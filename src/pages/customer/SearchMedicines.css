@@ -1,0 +1,29 @@
+.search-medicines-container {
+  padding: 20px;
+}
+
+.brand-input {
+  padding: 8px;
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.medicines-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.medicines-table th,
+.medicines-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.medicines-table th {
+  background-color: #f0f0f0;
+}
+
+.error {
+  color: red;
+}
