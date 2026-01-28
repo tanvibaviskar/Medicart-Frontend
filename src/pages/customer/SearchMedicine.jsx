@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosInstance from "../../api/axios"; // ✅ use axiosInstance with token
+import axiosInstance from "../../api/axios";
 import "./SearchMedicines.css";
 
 const SearchMedicines = () => {
@@ -8,54 +8,101 @@ const SearchMedicines = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Function to fetch medicines from backend
-  const fetchMedicines = async () => {
-  if (!brand) {
-    setMedicines([]);
-    return;
-  }
-  setLoading(true);
-  setError("");
-  try {
-    const res = await axiosInstance.get(
-      `/customers/medicines/search?brand=${brand}` // ✅ correct URL
-    );
-    setMedicines(res.data);
-  } catch (err) {
-    console.error(err);
-    if (err.response?.status === 403) {
-      setError("You are not authorized to access this resource.");
-    } else if (err.response?.status === 404) {
-      setError("Endpoint not found. Check backend URL.");
-    } else {
-      setError("Failed to fetch medicines. Try again.");
-    }
-  } finally {
-    setLoading(false);
-  }
-};
+  // Filters
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minDiscount, setMinDiscount] = useState("");
+  const [maxDiscount, setMaxDiscount] = useState("");
+  const [inStock, setInStock] = useState(null); // null = all, true = available, false = out of stock
 
-  // Fetch when user types (with debounce)
+  const fetchMedicines = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axiosInstance.get("/customers/medicines/search", {
+        params: {
+          brand: brand || undefined,
+          minPrice: minPrice || undefined,
+          maxPrice: maxPrice || undefined,
+          minDiscount: minDiscount || undefined,
+          maxDiscount: maxDiscount || undefined,
+          inStock: inStock !== null ? inStock : undefined,
+        },
+      });
+      setMedicines(res.data);
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 403) {
+        setError("You are not authorized.");
+      } else if (err.response?.status === 404) {
+        setError("Endpoint not found.");
+      } else {
+        setError("Failed to fetch medicines.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch when brand or filters change
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchMedicines();
-    }, 500); // fetch after 500ms of no typing
+    }, 300); // debounce
     return () => clearTimeout(timer);
-  }, [brand]);
+  }, [brand, minPrice, maxPrice, minDiscount, maxDiscount, inStock]);
 
   return (
     <div className="search-medicines-container">
-      <h2>Search Medicines by Brand</h2>
-      <input
-        type="text"
-        placeholder="Enter brand name..."
-        value={brand}
-        onChange={(e) => setBrand(e.target.value)}
-        className="brand-input"
-      />
+      <h2>Search Medicines</h2>
+
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Min Price"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Max Price"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Min Discount %"
+          value={minDiscount}
+          onChange={(e) => setMinDiscount(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Max Discount %"
+          value={maxDiscount}
+          onChange={(e) => setMaxDiscount(e.target.value)}
+        />
+        <select
+          value={inStock === null ? "" : inStock ? "true" : "false"}
+          onChange={(e) => {
+            if (e.target.value === "") setInStock(null);
+            else setInStock(e.target.value === "true");
+          }}
+        >
+          <option value="">All</option>
+          <option value="true">Available</option>
+          <option value="false">Out of stock</option>
+        </select>
+      </div>
+
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      {!loading && medicines.length === 0 && brand && <p>No medicines found.</p>}
+      {!loading && medicines.length === 0 && <p>No medicines found.</p>}
 
       <table className="medicines-table">
         <thead>
