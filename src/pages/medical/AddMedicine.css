@@ -1,30 +1,72 @@
-.add-medicine-card {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 14px;
-  max-width: 700px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+/* Wrapper to center card */
+.medicine-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* ✅ centers card vertically */
+  background-color: #f5f6fa;
+  height: calc(100vh - 48px);
+  overflow: hidden; /* ✅ disables page scroll */
+  margin-top: -48px;
 }
 
-.add-medicine-card h2 {
-  margin-bottom: 20px;
+/* Card container (slightly smaller) */
+.medicine-card {
+  background: #ffffff;
+  padding: 16px 16px; /* slightly reduced from 20px */
+  border-radius: 16px;
+  max-width: 680px;
+  max-height: 500px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07); /* slightly lighter & smaller shadow */
+  transition: transform 0.2s;
+}
+
+.medicine-card:hover {
+  transform: translateY(-3px); /* slightly less lift */
+}
+
+.medicine-card h2 {
+  margin-bottom: 8px;
   color: #2c3e50;
 }
 
+.card-subtitle {
+  font-size: 14px;
+  margin-bottom: 18px; /* slightly reduced */
+  color: #666;
+}
+
+/* Message styling */
 .msg {
   margin-bottom: 15px;
   font-weight: 500;
+  color: #27ae60; /* success green */
 }
 
+.msg:contains("❌") {
+  color: #e74c3c; /* error red */
+}
+
+/* Form layout */
 .medicine-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px; /* slightly reduced from 16px */
 }
 
 .form-row {
   display: flex;
-  gap: 16px;
+  gap: 14px; /* slightly reduced */
+}
+
+/* Specific gap between MFG and EXP */
+.form-row:nth-of-type(3) {
+  gap: 18px; /* slightly reduced */
+}
+
+/* Specific gap between Quantity, Price, Discount */
+.form-row:nth-of-type(4) {
+  gap: 18px; /* slightly reduced */
 }
 
 .form-group {
@@ -40,28 +82,42 @@
 }
 
 .form-group input {
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 10px 12px; /* slightly reduced */
+  border-radius: 10px;
   border: 1px solid #ccc;
   outline: none;
-  transition: border 0.2s;
+  font-size: 14px;
+  transition: all 0.2s;
 }
 
 .form-group input:focus {
   border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
 }
 
+/* Button */
 .btn-primary {
   margin-top: 10px;
-  padding: 12px;
+  padding: 12px; /* slightly reduced */
   background-color: #3498db;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 15px;
   cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
 }
 
 .btn-primary:hover {
   background-color: #2c80b4;
+  transform: translateY(-1px);
+}
+
+.content {
+  flex: 1;
+  padding: 20px; /* slightly reduced */
+  overflow-y: hidden; /* ✅ remove scroll */
+  background: #f8fafc;
 }

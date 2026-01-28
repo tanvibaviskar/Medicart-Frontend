@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 import "./AddMedicine.css";
 
 const AddMedicine = () => {
@@ -26,15 +26,11 @@ const AddMedicine = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post(
-        "http://localhost:8080/medicals/addMedicine",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.post("http://localhost:8080/medicals/addMedicine", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setMsg("✅ Medicine added successfully");
 
@@ -54,55 +50,106 @@ const AddMedicine = () => {
   };
 
   return (
-    <div className="add-medicine-card">
-      <h2>Add New Medicine</h2>
+    <div className="medicine-card-wrapper">
+      <div className="medicine-card">
+        <h2>Add New Medicine</h2>
+        <p className="card-subtitle">
+          Fill in the details to add a new medicine
+        </p>
 
-      {msg && <p className="msg">{msg}</p>}
+        {msg && <p className="msg">{msg}</p>}
 
-      <form onSubmit={handleSubmit} className="medicine-form">
-        <div className="form-group">
-          <label>Brand</label>
-          <input name="brand" value={formData.brand} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Description</label>
-          <input name="description" value={formData.description} onChange={handleChange} required />
-        </div>
-
-        <div className="form-row">
+        <form onSubmit={handleSubmit} className="medicine-form">
           <div className="form-group">
-            <label>MFG Date</label>
-            <input type="date" name="mfgDate" value={formData.mfgDate} onChange={handleChange} required />
+            <label>Brand</label>
+            <input
+              name="brand"
+              value={formData.brand}
+              onChange={handleChange}
+              required
+              placeholder="Enter medicine brand"
+            />
           </div>
 
           <div className="form-group">
-            <label>EXP Date</label>
-            <input type="date" name="expDate" value={formData.expDate} onChange={handleChange} required />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Quantity</label>
-            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Price</label>
-            <input type="number" step="0.01" name="price" value={formData.price} onChange={handleChange} required />
+            <label>Description</label>
+            <input
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+              placeholder="Enter description"
+            />
           </div>
 
-          <div className="form-group">
-            <label>Discount (%)</label>
-            <input type="number" step="0.01" name="discount" value={formData.discount} onChange={handleChange} />
-          </div>
-        </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>MFG Date</label>
+              <input
+                type="date"
+                name="mfgDate"
+                value={formData.mfgDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-        <button type="submit" className="btn-primary">
-          Add Medicine
-        </button>
-      </form>
+            <div className="form-group">
+              <label>EXP Date</label>
+              <input
+                type="date"
+                name="expDate"
+                value={formData.expDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Quantity</label>
+              <input
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                required
+                placeholder="Enter quantity"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Price</label>
+              <input
+                type="number"
+                step="0.01"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+                placeholder="Enter price"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Discount (%)</label>
+              <input
+                type="number"
+                step="0.01"
+                name="discount"
+                value={formData.discount}
+                onChange={handleChange}
+                placeholder="Enter discount"
+              />
+            </div>
+          </div>
+
+          <button type="submit" className="btn-primary">
+            Add Medicine
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

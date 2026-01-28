@@ -1,45 +1,130 @@
-.update-container {
-  max-width: 400px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
+/* Wrapper – SAME as UpdateInventory */
+.inventory-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f6fa;
+  height: calc(100vh - 48px);
+  overflow: hidden; /* ✅ no page scroll */
+  margin: -50px; /* ✅ removes top gap from .content */
 }
 
+/* Card */
+.inventory-card {
+  background: #ffffff;
+  padding: 32px 20px;
+  border-radius: 16px;
+  max-width: 720px;
+  width: 100%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.inventory-card:hover {
+  transform: translateY(-4px);
+}
+
+.inventory-card h2 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.card-subtitle {
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: #666;
+}
+
+/* Location button */
 .location-btn {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #0077ff;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #3498db;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.form-group {
+.location-btn:hover {
+  background: #2c80b4;
+}
+
+/* Messages */
+.msg {
   margin-bottom: 12px;
+  font-weight: 500;
+  color: #27ae60;
+}
+
+.error-text {
+  margin-bottom: 10px;
+  color: #e74c3c;
+  font-size: 14px;
+}
+
+/* Form layout */
+.inventory-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 35px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .form-group label {
-  display: block;
-  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
 }
 
 .form-group input {
   width: 100%;
-  padding: 8px;
+  padding: 12px 6px; /* 🔽 was 12px 14px */
+  border-radius: 8px; /* 🔽 slightly smaller curve */
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 13px; /* 🔽 was 14px */
 }
 
-.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background: green;
+/* Allow inputs to shrink inside flex row */
+.form-row .form-group {
+  flex: 1;
+  min-width: 0; /* ✅ VERY IMPORTANT (prevents overflow) */
+}
+
+.form-group input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+}
+
+/* Submit button */
+.btn-primary {
+  margin-top: 10px;
+  padding: 14px;
+  background-color: #27ae60;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
 }
 
-.error-text {
-  color: red;
-  font-size: 14px;
+.btn-primary:hover {
+  background-color: #219150;
+  transform: translateY(-1px);
 }

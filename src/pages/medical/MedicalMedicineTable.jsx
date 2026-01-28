@@ -1,91 +1,49 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axiosInstance from "../../api/axios";
 import "./MedicalMedicineTable.css";
 
 const MedicalMedicineTable = () => {
   const [medicines, setMedicines] = useState([]);
-  const [msg, setMsg] = useState("");
+
+  // Fetch all medicines
+  const fetchMedicines = async () => {
+    const res = await axiosInstance.get("/medicals/viewStatus");
+    const data = Array.isArray(res.data) ? res.data : res.data?.data || [];
+    setMedicines(data);
+  };
 
   useEffect(() => {
     fetchMedicines();
   }, []);
 
-  const fetchMedicines = async () => {
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await axios.get(
-        "http://localhost:8080/medicals/viewStatus",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const data = Array.isArray(res.data)
-        ? res.data
-        : res.data?.data || [];
-
-      setMedicines(data);
-    } catch (err) {
-      console.error(err);
-      setMedicines([]);
-    }
+  // Change medicine status
+  const handleStatusChange = async (id, status) => {
+    await axiosInstance.put(`/medicals/changeMedicineStatus/${id}`, null, {
+      params: { status },
+    });
+    setMedicines((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, status } : m)),
+    );
   };
 
-  const handleStatusChange = async (medicineId, newStatus) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      await axios.put(
-        `http://localhost:8080/medicals/changeMedicineStatus/${medicineId}`,
-        null,
-        {
-          params: { status: newStatus },
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      setMedicines((prev) =>
-        prev.map((m) =>
-          m.id === medicineId ? { ...m, status: newStatus } : m
-        )
-      );
-
-      setMsg("✅ Status updated successfully");
-    } catch (err) {
-      console.error(err);
-      setMsg("❌ Failed to update status");
-    }
-  };
-
-  const handleSoftDelete = async (medicineId) => {
-    if (!window.confirm("Are you sure you want to delete this medicine?")) return;
-
-    try {
-      const token = localStorage.getItem("token");
-
-      await axios.delete(
-        `http://localhost:8080/medicals/softDeleteMedicine/${medicineId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      setMedicines((prev) => prev.filter((m) => m.id !== medicineId));
-      setMsg("🗑️ Medicine deleted successfully");
-    } catch (err) {
-      console.error(err);
-      setMsg("❌ Failed to delete medicine");
-    }
+  // Soft delete medicine
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this medicine?")) return;
+    await axiosInstance.delete(`/medicals/softDeleteMedicine/${id}`);
+    setMedicines((prev) => prev.filter((m) => m.id !== id));
   };
 
   return (
-    <div className="medicine-table-container">
-      <h2>My Medicines</h2>
-      {msg && <p className="msg-text">{msg}</p>}
+    <div className="medical-table-wrapper">
+      <div className="medical-table-header">
+        <div>
+          <h2>My Medicines</h2>
+          <p>Manage your listed medicines and availability</p>
+        </div>
+      </div>
 
-      <div className="table-wrapper">
-        <table className="medicine-table">
+      <div className="table-responsive">
+        <table className="medical-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -97,57 +55,50 @@ const MedicalMedicineTable = () => {
               <th>MFG</th>
               <th>EXP</th>
               <th>Status</th>
-              <th>Change Status</th>
-              <th>Delete</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
             {medicines.length === 0 ? (
               <tr>
-                <td colSpan="11" style={{ textAlign: "center" }}>
+                <td colSpan="10" style={{ textAlign: "center" }}>
                   No medicines found
                 </td>
               </tr>
             ) : (
-              medicines.map((m) => (
+              medicines.map((m, index) => (
                 <tr key={m.id}>
-                  <td>{m.id ?? "—"}</td>
-                  <td>{m.brand ?? "—"}</td>
-                  <td>{m.description ?? "—"}</td>
+                  <td>{index + 1}</td>
+                  <td>
+                    <div className="store-cell">
+                      <div className="store-icon">💊</div>
+                      <strong>{m.brand ?? "—"}</strong>
+                    </div>
+                  </td>
+                  <td className="wrap-text">{m.description ?? "—"}</td>
                   <td>{m.quantity ?? 0}</td>
                   <td>₹{m.price ?? 0}</td>
                   <td>{m.discount ?? 0}%</td>
                   <td>{m.mfgDate ?? "—"}</td>
                   <td>{m.expDate ?? "—"}</td>
-
-                  <td>
-                    <span
-                      className={`status-badge ${
-                        (m.status ?? "inactive").toLowerCase()
-                      }`}
-                    >
-                      {m.status ?? "INACTIVE"}
-                    </span>
-                  </td>
-
                   <td>
                     <select
+                      className={`status-dropdown ${(
+                        m.status ?? "INACTIVE"
+                      ).toLowerCase()}`}
                       value={m.status ?? "INACTIVE"}
-                      onChange={(e) =>
-                        handleStatusChange(m.id, e.target.value)
-                      }
+                      onChange={(e) => handleStatusChange(m.id, e.target.value)}
                     >
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="INACTIVE">INACTIVE</option>
                       <option value="EXPIRED">EXPIRED</option>
                     </select>
                   </td>
-
                   <td>
                     <button
                       className="delete-btn"
-                      onClick={() => handleSoftDelete(m.id)}
+                      onClick={() => handleDelete(m.id)}
                     >
                       Delete
                     </button>

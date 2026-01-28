@@ -3,7 +3,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden; /* ❌ disables whole page scroll */
+  overflow: hidden;
 }
 
 /* ===== LAYOUT ===== */
@@ -73,17 +73,23 @@ body {
   font-size: 18px;
 }
 
-/* ===== LOGOUT ===== */
 .logout button {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.logout button:hover {
+  background: white;
+  color: #0284c7;
+}
+
 
 /* ===== MAIN ===== */
 .main {
@@ -91,27 +97,28 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden; /* ❌ prevents main scroll */
+  min-height: 0;
 }
 
 /* ===== TOPBAR ===== */
 .topbar {
   background: white;
-  padding: 22px 22px; /* reduced from 20px 24px */
+  padding: 22px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e5e7eb;
-  height: 56px; /* optional but recommended for consistent height */
+  height: 56px;
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 16px; /* slightly reduced */
+  gap: 16px;
 }
 
 .bell {
-  font-size: 18px; /* slightly smaller */
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -122,16 +129,18 @@ body {
 }
 
 .admin-info img {
-  width: 32px; /* reduced from 40px */
+  width: 32px;
   height: 32px;
   border-radius: 50%;
 }
 
 /* ===== CONTENT (ONLY SCROLL HERE) ===== */
-.content {
+.admin-layout .main .content {
   flex: 1;
+  min-height: 0;
   padding: 24px;
-  overflow-y: auto; /* ✅ ONLY SCROLLBAR */
+  overflow-y: auto; /* ✅ CANNOT BE OVERRIDDEN NOW */
+  overflow-x: hidden;
   background: #f8fafc;
 }
 

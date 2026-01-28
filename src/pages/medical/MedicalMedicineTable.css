@@ -1,59 +1,127 @@
-.medicine-table-container {
+/* ===== WRAPPER ===== */
+.medical-table-wrapper {
+  background: #ffffff;
+  border-radius: 18px;
   padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
-.table-wrapper {
-  overflow-x: auto;
+/* ===== HEADER ===== */
+.medical-table-header {
+  margin-bottom: 20px;
 }
 
-.medicine-table {
+.medical-table-header h2 {
+  font-size: 22px;
+  color: #1f2937;
+}
+
+.medical-table-header p {
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* ===== TABLE ===== */
+.medical-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
 }
 
-.medicine-table th,
-.medicine-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  font-size: 13px;
-  text-align: center;
-}
-
-.medicine-table th {
-  background: #0a6ebd;
+.medical-table thead th {
+  padding: 14px 18px;
+  background: #0284c7;
   color: white;
+  font-size: 14px;
+  text-align: left;
 }
 
-.status-badge.active {
-  color: green;
-  font-weight: bold;
+.medical-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.status-badge.inactive {
-  color: orange;
-  font-weight: bold;
+.medical-table tbody tr:hover {
+  background: #f8fafc;
 }
 
-.status-badge.expired {
-  color: red;
-  font-weight: bold;
+.medical-table td {
+  padding: 16px 18px;
+  vertical-align: middle;
 }
 
+/* ===== STORE CELL ===== */
+.store-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.store-icon {
+  width: 38px;
+  height: 38px;
+  background: #e0f2fe;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* ===== STATUS DROPDOWN ===== */
+.status-dropdown {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-align: center;
+  min-width: 70px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Status Colors */
+.status-dropdown.active {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-dropdown.inactive {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-dropdown.expired {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* ===== DELETE BUTTON ===== */
 .delete-btn {
-  background: #e74c3c;
+  background: #ef4444;
   color: white;
   border: none;
-  padding: 6px 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 4px;
+  transition: background 0.2s;
 }
 
 .delete-btn:hover {
-  background: #c0392b;
+  background: #dc2626;
 }
 
-.msg-text {
-  margin-bottom: 10px;
-  font-weight: bold;
+/* ===== RESPONSIVE TABLE ===== */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Wrap long text in Description */
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
 }

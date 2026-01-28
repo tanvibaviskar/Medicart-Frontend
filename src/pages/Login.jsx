@@ -1,5 +1,5 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/medicart-logo.png";
@@ -29,12 +29,16 @@ function Login() {
 
       const decoded = jwtDecode(token);
       const role = decoded.role.replace("ROLE_", "");
+      console.log("LOGIN RESPONSE 👉", res.data);
+
 
       loginUser({
-        email: decoded.sub,
-        role,
-        token,
-      });
+  email: decoded.sub,
+  role,
+  token,
+  fullName: res.data.fullName, // 🔥 ADD THIS
+});
+
 
       if (role === "ADMIN") navigate("/admin");
       else if (role === "MEDICAL") navigate("/medical");
