@@ -1,5 +1,10 @@
 import api from "./axios";
+import axiosInstance from "./axios"; // तुझा axiosInstance
 
+export const getNearbyMedicals = () => {
+  return axiosInstance.get("/customers/nearby-medicals"); 
+  // ⚠️ Do NOT wrap in another data layer
+};
 // 🔍 Search medicines
 export const searchMedicine = (name) =>
   api.get(`/customer/search?name=${name}`);
@@ -15,3 +20,4 @@ export const placeOrder = () =>
 // 🧾 Customer registration
 export const registerCustomer = (customerData) =>
   api.post("/customers/signup", customerData);
+

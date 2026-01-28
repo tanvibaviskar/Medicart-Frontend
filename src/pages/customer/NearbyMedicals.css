@@ -1,0 +1,39 @@
+.nearby-container {
+  padding: 20px;
+}
+
+.nearby-container h2 {
+  margin-bottom: 15px;
+  color: #1f2937;
+}
+
+.medical-list {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.medical-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.medical-card:hover {
+  transform: translateY(-3px);
+}
+
+.medical-card h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #111827;
+}
+
+.medical-card p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #4b5563;
+}

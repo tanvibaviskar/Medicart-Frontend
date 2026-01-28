@@ -63,14 +63,16 @@ const ViewAllMedicals = () => {
               <td>{m.contact}</td>
               <td>{m.license}</td>
               <td>
-                <select
-                  className={`status-dropdown ${m.status.toLowerCase()}`}
-                  value={m.status}
-                  onChange={(e) => handleStatusChange(m.id, e.target.value)}
-                >
-                  <option value="APPROVED">Approved</option>
-                  <option value="REJECTED">Rejected</option>
-                </select>
+               <select
+  className={`status-dropdown ${m.status.toLowerCase()}`}
+  value={m.status}
+  onChange={(e) => handleStatusChange(m.id, e.target.value)}
+>
+  <option value="PENDING">Pending</option>
+  <option value="APPROVED">Approved</option>
+  <option value="REJECTED">Rejected</option>
+</select>
+
               </td>
               <td>
                 <button
