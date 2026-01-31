@@ -1,11 +1,66 @@
 .search-medicines-container {
-  padding: 20px;
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
 }
 
-.brand-input {
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cart-btn {
+  background: linear-gradient(180deg, #0ea5e9, #0284c7);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filters-card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filters-card input,
+.filters-card select {
   padding: 8px;
-  width: 300px;
-  margin-bottom: 15px;
+  width: 140px;
+  border-radius: 8px;
+  border: 1px solid #cbd5f5;
+}
+
+.status {
+  color: #475569;
+  margin: 10px 0;
+}
+
+.error {
+  color: #dc2626;
+  margin: 10px 0;
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 14px;
+  overflow-x: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .medicines-table {
@@ -13,29 +68,117 @@
   border-collapse: collapse;
 }
 
-.medicines-table th,
-.medicines-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-
 .medicines-table th {
-  background-color: #f0f0f0;
+  background: #e2e8f0;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
 }
 
-.error {
-  color: red;
+.medicines-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
 }
-.filters {
+
+.medicines-table tr:hover {
+  background: #f1f5f9;
+}
+
+.price {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.add-btn {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.cart-icon-wrapper {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
+  align-items: center;
+  position: relative; /* 🔴 Needed for absolute badge */
+  cursor: pointer;
 }
 
-.filters input,
-.filters select {
-  padding: 6px;
-  width: 120px;
+.cart-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.cart-badge {
+  position: absolute; /* 🔴 Makes it float above the icon */
+  top: -6px; /* 🔴 Adjust vertical position */
+  right: -6px; /* 🔴 Adjust horizontal position */
+  background-color: red;
+  color: white;
+  font-size: 10px; /* 🔴 smaller size */
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.cart-text {
+  margin-left: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #111;
+  vertical-align: middle;
+}
+
+.cart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px; /* space between icon and text */
+}
+
+.icon-container {
+  position: relative; /* for badge positioning */
+  display: inline-block;
+}
+
+.cart-icon {
+  display: block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px; /* badge above icon */
+  right: -6px; /* adjust horizontally */
+  background-color: red;
+  color: white;
+  font-size: 10px; /* smaller badge */
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  line-height: 1;
+  z-index: 2;
+}
+
+.cart-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* 🔴 REMOVE BUTTON (CART PAGE ONLY) */
+.remove-btn {
+  background-color: #ef4444; /* red-500 */
+  color: white;
+}
+
+.remove-btn:hover {
+  background-color: #dc2626; /* darker red */
 }

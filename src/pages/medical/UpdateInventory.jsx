@@ -24,7 +24,7 @@ const UpdateInventory = () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        "http://localhost:8080/medicals/updateInventory",
+        "http://localhost:9090/medicals/updateInventory",
         formData,
         {
           headers: {

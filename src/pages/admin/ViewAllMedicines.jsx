@@ -8,7 +8,7 @@ const ViewAllMedicines = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/admin/medicines", {
+      .get("http://localhost:9090/admin/medicines", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -26,7 +26,7 @@ const AddMedicine = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.post("http://localhost:8080/medicals/addMedicine", formData, {
+      await axios.post("http://localhost:9090/medicals/addMedicine", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

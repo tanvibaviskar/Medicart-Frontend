@@ -40,7 +40,7 @@ const UpdateMedicalDetails = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.put("http://localhost:8080/medicals/update", payload, {
+      await axios.put("http://localhost:9090/medicals/update", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
