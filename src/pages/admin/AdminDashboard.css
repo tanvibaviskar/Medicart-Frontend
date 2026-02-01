@@ -31,8 +31,8 @@ body {
 }
 
 .sidebar-logo img {
-  width: 170px;
-  margin-left: -40px;
+  width: 250px;
+  /*margin-left: -40px;*/
 }
 
 .sidebar-logo h2 {
@@ -89,7 +89,6 @@ body {
   background: white;
   color: #0284c7;
 }
-
 
 /* ===== MAIN ===== */
 .main {

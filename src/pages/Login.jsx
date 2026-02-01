@@ -31,14 +31,12 @@ function Login() {
       const role = decoded.role.replace("ROLE_", "");
       console.log("LOGIN RESPONSE 👉", res.data);
 
-
       loginUser({
-  email: decoded.sub,
-  role,
-  token,
-  fullName: res.data.fullName, // 🔥 ADD THIS
-});
-
+        email: decoded.sub,
+        role,
+        token,
+        fullName: res.data.fullName, // 🔥 ADD THIS
+      });
 
       if (role === "ADMIN") navigate("/admin");
       else if (role === "MEDICAL") navigate("/medical");
@@ -142,7 +140,7 @@ const styles = {
   logoBox: {
     width: 46,
     height: 46,
-    background: "#e0f2fe",
+    background: "#c3c5ca",
     borderRadius: 10,
     margin: "0 auto 12px",
     display: "flex",
